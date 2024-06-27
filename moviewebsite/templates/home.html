@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Movies</h1>
+<ul>
+    {% for movie in movies %}
+        <li>
+            <a href="{% url 'movie_detail' movie.id %}">
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" width="200">
+            </a>
+            <p>{{ movie.title }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

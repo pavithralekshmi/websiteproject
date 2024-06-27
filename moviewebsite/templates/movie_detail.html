@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ movie.title }}</h2>
+<img src="{{ movie.poster.url }}" width="200" alt="{{ movie.title }}">
+<div class="col-md-6">
+    <p>{{ movie.description }}</p>
+    <p>Release Date: {{ movie.release_date }}</p>
+    <p>Actors: {{ movie.actors }}</p>
+    <p>Category: {{ movie.category }}</p>
+    <a href="{{ movie.trailer_link }}" target="_blank">Watch Trailer</a><br>
+</div>
+{% if user.is_authenticated and movie.added_by == user %}
+    <a class="btn btn-danger" href="{% url 'delete_movie' movie.id %}">Delete</a>
+    <a class="btn btn-primary" href="{% url 'update_movie' movie.id %}">Edit</a>
+{% endif %}
+<h3>Reviews</h3>
+<ul>
+    {% for review in reviews %}
+        <li>{{ review.user.username }}: {{ review.rating }} - {{ review.comment }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Post a Review</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Review</button>
+</form>
+{% endblock %}

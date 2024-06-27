@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<h1>{{ user_profile.user.username }}'s Profile</h1>
+<h2>Favorite Movies</h2>
+<ul>
+    {% for movie in favorite_movies %}
+        <li>
+            <a href="{% url 'movies:movie_detail' movie.id %}">
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" width="200">
+            </a>
+            <p>{{ movie.title }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
